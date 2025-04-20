@@ -1,4 +1,4 @@
 package com.RadioBase.Backend.controller;
 
-public class SatelliteController {
+public class LocationController {
 }
