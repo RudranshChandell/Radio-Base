@@ -11,7 +11,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
+    <main className="flex m *:`1n-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="stars"></div>
@@ -106,7 +106,7 @@ export default function Home() {
           left: 10px;
           top: 5px;
           box-shadow: 0 0 10px rgba(100, 100, 255, 0.8);
-        }
+        }/*-+765
 
         .satellite-panel {
           position: absolute;
@@ -135,4 +135,5 @@ export default function Home() {
       `}</style>
     </main>
   );
-}
+}1
+// .021ZCVX

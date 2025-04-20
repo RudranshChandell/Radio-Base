@@ -23,7 +23,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 ->oauth2
-                        .defaultSuccessUrl("http://localhost:3000/dashboard",true)
+                        .defaultSuccessUrl("http://localhost:3000/location",true)
                 )
                 .logout(logout ->logout
                         .logoutSuccessUrl("/")
