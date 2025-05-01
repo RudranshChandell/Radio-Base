@@ -11,7 +11,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex m *:`1n-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="stars"></div>
@@ -38,10 +38,18 @@ export default function Home() {
 
         {/* Buttons */}
         <div className={`mt-10 flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Link href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/google`} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
+          <Link
+            href={process.env.NEXT_PUBLIC_LOGIN_URL || "http://localhost:8080/oauth2/authorization/google"}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
+            aria-label="Login with Google"
+          >
             Login
           </Link>
-          <Link href="http://localhost:8080/oauth2/authorization/google" className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30">
+          <Link
+            href={process.env.NEXT_PUBLIC_REGISTER_URL || "http://localhost:8080/oauth2/authorization/google"}
+            className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30"
+            aria-label="Register with Google"
+          >
             Register
           </Link>
         </div>
@@ -106,7 +114,7 @@ export default function Home() {
           left: 10px;
           top: 5px;
           box-shadow: 0 0 10px rgba(100, 100, 255, 0.8);
-        }/*-+765
+        }
 
         .satellite-panel {
           position: absolute;
@@ -135,5 +143,4 @@ export default function Home() {
       `}</style>
     </main>
   );
-}1
-// .021ZCVX
+}

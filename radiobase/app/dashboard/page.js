@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SatellitesList from '../components/SatellitesList';
 import useSatelliteStore from '../stores/SatelliteStore';
+import { useRouter } from 'next/navigation';
+import { Router } from 'lucide-react';
 
 export default function Dashboard() {
   const satelliteData = useSatelliteStore((state) => state.satelliteData); // Correctly fetch satelliteData from the store
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   console.log
   useEffect(() => {
@@ -16,6 +19,7 @@ export default function Dashboard() {
       setIsLoading(false);
     } else {
       setError('Failed to load satellite data');
+      router.push('/location'); // Redirect to home if no data is available
     }
   }, [satelliteData]);
 
@@ -28,6 +32,7 @@ export default function Dashboard() {
     const avgAlt = altitudes.reduce((sum, alt) => sum + alt, 0) / total;
     const highestAlt = Math.max(...altitudes);
     const category = satelliteData.info.category;
+
     
     return { total, avgAlt, highestAlt, category };
   };
