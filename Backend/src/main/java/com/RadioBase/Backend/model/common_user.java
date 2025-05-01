@@ -11,7 +11,6 @@ public class common_user {
 
     private String email;
     private String name;
-    private String familyName;
     private String profilePicture;
 
     // Constructors, Getters, and Setters
@@ -20,7 +19,6 @@ public class common_user {
     public common_user(String email, String name, String familyName, String profilePicture) {
         this.email = email;
         this.name = name;
-        this.familyName = familyName;
         this.profilePicture = profilePicture;
     }
 
@@ -33,9 +31,6 @@ public class common_user {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-
-    public String getFamilyName() { return familyName; }
-    public void setFamilyName(String familyName) { this.familyName = familyName; }
 
     public String getProfilePicture() { return profilePicture; }
     public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }

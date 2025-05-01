@@ -1,5 +1,6 @@
 package com.RadioBase.Backend.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,19 +14,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
-                .csrf(csrf-> csrf.disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login/**", "/oauth2/**", "/api/**", "/authenticated").permitAll()
+                        .requestMatchers("/", "/login/**", "/oauth2/**", "/api/**", "/authenticated","/user").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth2 ->oauth2
-                        .defaultSuccessUrl("http://localhost:3000/location",true)
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(customAuthenticationSuccessHandler)
                 )
-                .logout(logout ->logout
+                .logout(logout -> logout
                         .logoutSuccessUrl("/")
                 );
 

@@ -6,7 +6,9 @@ import useSatelliteStore from '../stores/SatelliteStore';
 
 export default function LocationComponent() {
   const router = useRouter();
-  const setSatelliteData = useSatelliteStore((state) => state.setSatelliteData); // Move hook to the top level
+  const setSatelliteData = useSatelliteStore((state) => state.setSatelliteData); 
+  const setLattitude = useSatelliteStore((state) => state.setLattitude);
+  const setLongitude = useSatelliteStore((state) => state.setLongitude);
   const [isLoading, setIsLoading] = useState(false);
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
@@ -27,6 +29,9 @@ export default function LocationComponent() {
 
         // Set coordinates in state
         setCoordinates({ lat, lng });
+
+        setLattitude(lat); 
+        setLongitude(lng); 
 
         // Call the function that will be used to communicate with backend
         sendCoordinatesToBackend(lat, lng);

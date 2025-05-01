@@ -5,10 +5,11 @@ import Link from 'next/link';
 import SatellitesList from '../components/SatellitesList';
 import useSatelliteStore from '../stores/SatelliteStore';
 import { useRouter } from 'next/navigation';
-import { Router } from 'lucide-react';
 
 export default function Dashboard() {
-  const satelliteData = useSatelliteStore((state) => state.satelliteData); // Correctly fetch satelliteData from the store
+  const satelliteData = useSatelliteStore((state) => state.satelliteData); 
+  const lattitude = (useSatelliteStore((state) => state.lattitude)).toFixed(5);
+  const longitude = (useSatelliteStore((state) => state.longitude)).toFixed(5); 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -105,8 +106,8 @@ export default function Dashboard() {
           </div>
           
           <div className="bg-gradient-to-br from-yellow-900/40 to-yellow-800/40 p-6 rounded-xl border border-yellow-700/30 shadow-lg">
-            <h3 className="text-gray-400 text-sm uppercase">Coordinates</h3>
-            <p className="text-xl font-semibold mt-1">Currently Set</p>
+            <h3 className="text-gray-400 text-sm uppercase">your Coordinates</h3>
+            <p className="text-xl font-semibold mt-1">{lattitude}  ,  {longitude}</p>
             <p className="text-yellow-400 mt-2">Data Updated</p>
           </div>
         </div>
