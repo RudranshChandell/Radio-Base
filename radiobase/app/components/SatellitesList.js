@@ -202,7 +202,7 @@ export default function SatellitesList({ satellites }) {
           
           <div className="mt-4 flex justify-center">
             <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg text-white font-medium transition-all duration-300">
-              Get Pass Predictions
+              Get Map View 
             </button>
           </div>
         </div>

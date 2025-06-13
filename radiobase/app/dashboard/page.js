@@ -26,7 +26,10 @@ export default function Dashboard() {
 
   // Get stats for summary cards
   const getStats = () => {
-    if (!satelliteData) return { total: 0, avg: 0, highest: 0, category: 'Unknown' };
+    if (!satelliteData) {
+      router.push('/location'); 
+      return { total: 0, avgAlt: 0, highestAlt: 0, category: 'N/A' };
+    };
     
     const total = satelliteData.above.length;
     const altitudes = satelliteData.above.map(sat => sat.satalt);
@@ -59,10 +62,7 @@ export default function Dashboard() {
             <button className="px-4 py-2 text-blue-400 border-b-2 border-blue-400 rounded-lg bg-gray-700/50">
               Dashboard
             </button>
-            <button className="px-4 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-700">
-              Satellites
-            </button>
-            <button className="px-4 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-700">
+            <button href="/prediction" className="px-4 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-700">
               Predictions
             </button>
             <Link href="/" className="px-4 py-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-700">

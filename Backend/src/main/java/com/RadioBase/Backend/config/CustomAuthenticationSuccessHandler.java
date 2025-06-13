@@ -32,7 +32,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         user.setName(fullName);
         user.setProfilePicture(picture);
-        
+
         userRepository.save(user); // Save user information
 
         // Redirect to the desired URL
