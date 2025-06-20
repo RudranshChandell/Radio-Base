@@ -6,8 +6,9 @@ const useSatelliteStore = create((set) => ({
   lattitude: null,
   longitude: null,
 
-  setLattitude: (lattitude) => set({ lattitude }),
-  setLongitude: (longitude) => set({ longitude }),
+  setLattitude: (lat) => set({ lattitude: lat }),
+  setLongitude: (lng) => set({ longitude: lng }),
   setSatelliteData: (data) => set({ satelliteData: data }),
+
 }));
 export default useSatelliteStore;
