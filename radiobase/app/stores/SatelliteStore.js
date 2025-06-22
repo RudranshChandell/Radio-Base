@@ -1,14 +1,20 @@
-// stores/satelliteStore.js
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-const useSatelliteStore = create((set) => ({
-  satelliteData: null,
-  lattitude: null,
-  longitude: null,
+const useSatelliteStore = create(
+  persist(
+    (set) => ({
+      satelliteData: null,
+      lattitude: null,
+      longitude: null,
+      setSatelliteData: (data) => set({ satelliteData: data }),
+      setLattitude: (lat) => set({ lattitude: lat }),
+      setLongitude: (lng) => set({ longitude: lng }),
+    }),
+    {
+      name: 'satellite-storage', // unique name
+    }
+  )
+);
 
-  setLattitude: (lat) => set({ lattitude: lat }),
-  setLongitude: (lng) => set({ longitude: lng }),
-  setSatelliteData: (data) => set({ satelliteData: data }),
-
-}));
 export default useSatelliteStore;

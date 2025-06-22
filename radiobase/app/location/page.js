@@ -6,7 +6,6 @@ import useSatelliteStore from '../stores/SatelliteStore';
 
 export default function LocationComponent() {
   const router = useRouter();
-  const setSatelliteData = useSatelliteStore((state) => state.setSatelliteData); 
   const setLattitude = useSatelliteStore((state) => state.setLattitude);
   const setLongitude = useSatelliteStore((state) => state.setLongitude);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,14 +28,16 @@ export default function LocationComponent() {
 
         // Set coordinates in state
         setCoordinates({ lat, lng });
-
         setLattitude(lat); 
         setLongitude(lng); 
 
-        // Call the function that will be used to communicate with backend
-        sendCoordinatesToBackend(lat, lng);
-
         setIsLoading(false);
+        if(lat && lng) {
+          setTimeout(() => {
+            // Redirect to dashboard after a short delay
+            router.push('/dashboard');
+          }, 2000); // 1 second delay
+        }
       },
       (error) => {
         setIsLoading(false);
@@ -58,31 +59,7 @@ export default function LocationComponent() {
     );
   };
 
-  const sendCoordinatesToBackend = async (lat, lng) => {
-    try {
-      const response = await fetch("http://localhost:8080/api/location", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          latitude: lat,
-          longitude: lng,
-        }),
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.json(); // Ensure the backend returns JSON
-      setSatelliteData(result); // Use the store's function to update the satellite data
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Error sending coordinates to backend:", error);
-    }
-  };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white p-4">

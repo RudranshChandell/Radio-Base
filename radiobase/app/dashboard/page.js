@@ -8,8 +8,6 @@ import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
   const router = useRouter();
-
-  // Zustand global state
   const satelliteData = useSatelliteStore((state) => state.satelliteData);
   const lattitude = useSatelliteStore((state) => state.lattitude)?.toFixed(5) || '0.00000';
   const longitude = useSatelliteStore((state) => state.longitude)?.toFixed(5) || '0.00000';
@@ -83,6 +81,8 @@ export default function Dashboard() {
       const data = await response.json();
       setSatelliteData(data);
       setIsLoading(false);
+      
+            console.log(isLoading)
 
       console.log("Received satellite data:", data);
     } catch (error) {
@@ -106,20 +106,21 @@ export default function Dashboard() {
     }
   }, [satelliteData]);
 
-  // Stats summary
+
   const getStats = () => {
-    if (!satelliteData) {
+    if (!satelliteData || !satelliteData.above || satelliteData.above.length === 0) {
       return { total: 0, avgAlt: 0, highestAlt: 0, category: 'N/A' };
     }
 
     const total = satelliteData.above.length;
     const altitudes = satelliteData.above.map((sat) => sat.satalt);
-    const avgAlt = altitudes.reduce((sum, alt) => sum + alt, 0) / total;
-    const highestAlt = Math.max(...altitudes);
-    const category = satelliteData.info.category;
+    const avgAlt = total > 0 ? altitudes.reduce((sum, alt) => sum + alt, 0) / total : 0;
+    const highestAlt = total > 0 ? Math.max(...altitudes) : 0;
+    const category = satelliteData.info?.category || 'N/A';
 
     return { total, avgAlt, highestAlt, category };
   };
+
 
   const stats = getStats();
 
@@ -197,7 +198,6 @@ export default function Dashboard() {
             <div className="p-12 text-center">
               <p className="text-red-400">{error}</p>
               <button
-                onClick={() => router.refresh()}
                 className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700"
               >
                 Try Again
