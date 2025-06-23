@@ -6,6 +6,8 @@ import SatellitesList from '../components/SatellitesList';
 import useSatelliteStore from '../stores/SatelliteStore';
 import { useRouter } from 'next/navigation';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
 export default function Dashboard() {
   const router = useRouter();
   const satelliteData = useSatelliteStore((state) => state.satelliteData);
@@ -65,7 +67,7 @@ export default function Dashboard() {
   // Send location to backend
   const sendCoordinatesToBackend = async (lat, lng) => {
     try {
-      const response = await fetch("http://localhost:8080/api/location", {
+      const response = await fetch(`${API_BASE_URL}/api/location`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
