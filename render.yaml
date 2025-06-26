@@ -5,6 +5,8 @@ services:
     env: docker
     region: oregon
     plan: free
+    dockerContext: ./Backend
+    dockerfilePath: ./Backend/Dockerfile
     healthCheckPath: /actuator/health
     envVars:
       - key: PORT
@@ -42,6 +44,7 @@ services:
     env: node
     region: oregon
     plan: free
+    rootDir: radiobase
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
@@ -57,4 +60,4 @@ databases:
     databaseName: radiobase
     user: radiobase_user
     region: oregon
-    plan: free 
+    plan: free
