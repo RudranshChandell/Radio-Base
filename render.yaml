@@ -6,7 +6,7 @@ services:
     region: oregon
     plan: free
     dockerContext: ./Backend
-    dockerfilePath: ./Backend/Dockerfile
+    dockerfilePath: Dockerfile
     healthCheckPath: /actuator/health
     envVars:
       - key: PORT
@@ -33,23 +33,6 @@ services:
         value: https://radiobase.vercel.app,http://localhost:3000
       - key: SHOW_SQL
         value: false
-
-  # Frontend Web Service (Alternative to Vercel)
-  - type: web
-    name: radiobase-frontend
-    env: node
-    region: oregon
-    plan: free
-    rootDir: radiobase
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NEXT_PUBLIC_API_BASE_URL
-        value: https://radiobase-backend.onrender.com
-      - key: NEXT_PUBLIC_LOGIN_URL
-        value: https://radiobase-backend.onrender.com/oauth2/authorization/google
-      - key: NEXT_PUBLIC_REGISTER_URL
-        value: https://radiobase-backend.onrender.com/oauth2/authorization/google
 
 databases:
   - name: radiobase-db
