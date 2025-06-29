@@ -6,7 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User ;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -18,9 +17,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserRepository userRepository; // Your JPA repository
-
-    @Value("${NEXT_PUBLIC_FRONTEND_URL:http://localhost:3000}")
-    private String frontendUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -40,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         userRepository.save(user); // Save user information
 
         // Redirect to the desired URL
-        response.sendRedirect(frontendUrl + "/location");
+        response.sendRedirect("http://localhost:3000/location");
     }
 
 }
