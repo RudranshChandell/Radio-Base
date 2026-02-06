@@ -1,15 +1,13 @@
-# Use Java 17 base image
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set working directory
+# Build stage
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the built JAR file into the image
-ARG JAR_FILE=target/Backend-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
-
-# Expose the port used by Spring Boot
+# Run stage
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
