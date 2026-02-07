@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     // When deploying, set BACKEND_URL to your Render backend URL (e.g. https://my-app.onrender.com)
     // Make sure to remove the trailing slash if present, or handle it carefully.
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080';
+    // Hardcoded for stability on Vercel
+    const backendUrl = 'https://radio-base.onrender.com';
     return [
       {
         source: '/api/proxy/:path*',
