@@ -17,7 +17,9 @@ export async function fetchSatellites(
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch satellites");
+    const errorBody = await res.text();
+    console.error(`Backend returned status ${res.status}: ${errorBody}`);
+    throw new Error(`Failed to fetch satellites: Status ${res.status}`);
   }
 
   return res.json();
